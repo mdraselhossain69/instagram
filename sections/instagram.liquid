@@ -1,0 +1,66 @@
+<div class="wrapper" data-section-id="{{ section.id }}" data-section-type="instagram-section">
+  <div id="instagram" class="page-width">
+    <div id="instafeed"></div>
+  </div>
+</div>
+<style>
+
+</style>
+<script src="{{'instagram.js' | asset_url }}"></script>
+ 
+{% assign name = section.settings %}
+<script>
+(function($){
+        $(window).on('load', function(){
+            $.instagramFeed({
+                'username': '{{name.userid}}',
+                'container': "#instafeed",
+                'display_profile': true,
+                'display_biography': false,
+                'display_gallery': true,
+                'callback': null,
+                'styling': false,
+                'items': {{name.show}},
+                'items_per_row': {{name.instagram_per_row}},
+                'margin': 1 
+            });
+        });
+    })(jQuery);
+</script>
+<style>
+  #instafeed .instagram_gallery{width:100%;margin:auto;display:flex;flex-wrap:wrap}#instafeed .instagram_gallery a{display:flex;align-items:center;position:relative;width:50%;background:white;cursor:pointer}@media only screen and (min-width: 580px){#instafeed .instagram_gallery a{width:25%}}#instafeed .instagram_gallery a img{display:block;width:100%}
+  .instagram_profile {
+    text-align: center;
+}
+</style>
+{% schema %}
+{
+  "name": "Instagram",
+  "settings": [
+      {
+        "type": "text",
+        "id": "show",
+        "label": "Show Instagram Image",
+        "default": "10"
+      },
+      {
+        "type": "text",
+        "id": "instagram_per_row",
+        "label": "Instagram image per row",
+        "default": "5"
+      },
+      {
+        "type": "text",
+        "id": "userid",
+        "label": "Instagram UserName",
+        "default": "mytridesigns"
+      }
+  ],
+  "presets": [
+    {
+      "name": "Instagram",
+      "category": "Instagram"
+    }
+  ]
+}
+{% endschema %}
